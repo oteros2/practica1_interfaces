@@ -1,3 +1,4 @@
+import { MoviesResponse } from "../../config/responses/dataMovies";
 import { HttpError } from "./HttpError";
 
 interface Config{

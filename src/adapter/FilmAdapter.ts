@@ -1,5 +1,7 @@
-import { Http } from "./http/Http";
+import { resultMovieMapper } from "../config/mapper/resultMovieMapper";
 import { HttpError } from "./http/HttpError";
+import ResultMovie from "../config/entities/ResultMovie";
+import { HttpFactory } from "./http/HttpFactory";
 
 interface DataMovieRequest {
     total?: number;
@@ -13,13 +15,12 @@ export class FilmAdapter {
         now_playing: "/now_playing",
     };
 
-    static async getFilm({ route = this.ROUTES.now_playing, page = 1 }: DataMovieRequest): Promise<MoviesResponse | HttpError> {
+    static async getMovies({route=this.ROUTES.now_playing, page=1, total}: DataMovieRequest): Promise<ResultMovie | null> {
         const http = HttpFactory.build();
-        if (!Reflect.has(FilmAdapter.ROUTES, route)) route = FilmAdapter.ROUTES.now_playing; {
-            const movies = await http.getFilm(route, page);
-            if (movies instanceof HttpError) return null;
-            const dataMovies = resultMovieMapper(movies);
-            return dataMovies;
-        }
+        if (!Reflect.has(FilmAdapter.ROUTES, route)) route = FilmAdapter.ROUTES.now_playing;
+        const movies = await http.getFilm(route,page);
+        if (movies instanceof HttpError) return null;
+        const dataMovies = resultMovieMapper(movies);
+        return dataMovies;
     }
 }
