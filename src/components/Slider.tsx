@@ -10,29 +10,27 @@ interface Movies {
   export default function Slider({ movies, height }: Movies) {
     return (
       <View>
-        <ScrollView style = {styles.contenedor} horizontal={true}>
-          {movies.map((item) => (
-            <Image style = {styles.imagen} key = {item.id}
-              source={{
-                uri: `https://image.tmdb.org/t/p/original${item.poster}`,
-              }}
-            />
-          ))}
-        </ScrollView>
-        <Pressable>
-           <Text>Siguiente página</Text>
-        </Pressable>
+        <ScrollView style={styles.contenedor} horizontal={true}>
+        {movies.map((item) => (
+          <Image
+            style={[styles.imagen, { height }]}
+            key={item.id}
+            source={{
+              uri: `https://image.tmdb.org/t/p/original${item.poster}`,
+            }}
+          />
+        ))}
+      </ScrollView>
       </View>
     )
   }
   
   const styles = StyleSheet.create({
     contenedor: {
-      height: 300,
+      height: 600,
     }, 
     imagen: {
-      width: 200,
-      //height: 200,
+      width: 300,
       margin: 1
     }
   })

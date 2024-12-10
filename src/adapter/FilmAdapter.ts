@@ -12,12 +12,12 @@ interface DataMovieRequest {
 export class FilmAdapter {
     static ROUTES = {
         popular: "/popular",
-        now_playing: "/now_playing",
+        nowPlaying: "/now_playing",
     };
 
-    static async getMovies({route=this.ROUTES.now_playing, page=1, total}: DataMovieRequest): Promise<ResultMovie | null> {
+    static async getMovies({route=this.ROUTES.nowPlaying, page=1, total}: DataMovieRequest): Promise<ResultMovie | null> {
         const http = HttpFactory.build();
-        if (!Reflect.has(FilmAdapter.ROUTES, route)) route = FilmAdapter.ROUTES.now_playing;
+        if (!Reflect.has(FilmAdapter.ROUTES, route)) route = FilmAdapter.ROUTES.nowPlaying;
         const movies = await http.getFilm(route,page);
         if (movies instanceof HttpError) return null;
         const dataMovies = resultMovieMapper(movies);

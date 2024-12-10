@@ -3,20 +3,24 @@ import ResultMovie from "../config/entities/ResultMovie";
 import { FilmAdapter } from "../adapter/FilmAdapter";
 
 export const useMovies = () => {
-    const [now_playing, setNowPlaying] = useState<ResultMovie | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+
+    const [nowPlaying, setNowPlaying] = useState<ResultMovie| null>(null);
+
+    const [loading, setLoading] =useState(true);
 
     const loadMovies = async () => {
-        const movies = await FilmAdapter.getMovies({ ...now_playing, route: FilmAdapter.ROUTES.now_playing });
+        const movies = await FilmAdapter.getMovies({...nowPlaying, route : FilmAdapter.ROUTES.nowPlaying});
         if (movies != null) {
             setNowPlaying(movies);
-            setLoading(true);
+            setLoading(false);
         }
+    }
 
-        useEffect(() => {
-            loadMovies();
-        }, []);
-
-        return { now_playing, loading };
+    useEffect(() => {
+      loadMovies();
+    }, [])
+    
+    return {
+        nowPlaying, loading
     }
 }
