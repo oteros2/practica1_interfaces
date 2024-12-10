@@ -1,0 +1,7 @@
+import { Http, IFilm } from "./Http";
+
+export class HttpFactory {
+    static build() : IFilm {
+        switch
+    }
+}

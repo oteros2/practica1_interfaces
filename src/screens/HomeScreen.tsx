@@ -1,9 +1,9 @@
 import { View, Text, Button } from 'react-native'
 import React from 'react'
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
 
 type HomeScreenProps = {
-  navigation: NavigationProp<any>;
+  navigation: NavigationProp<ParamListBase>;
 };
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {

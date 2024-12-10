@@ -1,9 +1,9 @@
 import { View, Text, Button } from 'react-native'
 import React from 'react'
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
 
 type MovieScreenProps = {
-    navigation: NavigationProp<any>;
+    navigation: NavigationProp<ParamListBase>;
   };
 
 const MovieScreen = ({navigation} : MovieScreenProps) => {
@@ -12,7 +12,7 @@ const MovieScreen = ({navigation} : MovieScreenProps) => {
       <Text>MovieScreen</Text>
       <Button
         title="Go to Home Screen"
-        onPress={() => navigation.navigate('Movie')}
+        onPress={() => navigation.navigate('Home')}
       />
     </View>
   )
