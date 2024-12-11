@@ -14,7 +14,7 @@ const MovieScreen = ({ navigation }: MovieScreenProps) => {
   const handleScroll = (event: any) => {
     const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
     const isEndReached =
-      contentOffset.x + layoutMeasurement.width >= contentSize.width - 50;
+      contentOffset.x + layoutMeasurement.width >= contentSize.width - 20;
 
       if (isEndReached && !loading) {
         loadNextMovies();
@@ -23,7 +23,7 @@ const MovieScreen = ({ navigation }: MovieScreenProps) => {
 
     return (
       <View>
-        <Slider movies={nowPlaying} height={500} handleScroll={handleScroll}/>
+        <Slider movies={nowPlaying} height={300} handleScroll={handleScroll}/>
         <Button
           title="Go to Home Screen"
           onPress={() => navigation.navigate('Home')}

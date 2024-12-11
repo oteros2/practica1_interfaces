@@ -15,7 +15,7 @@ interface Movies {
         {movies.map((item, index) => (
           <Image
             style={[styles.imagen, { height }]}
-            key={`${item.id}-${index}`}
+            key={item.id}
             source={{
               uri: `https://image.tmdb.org/t/p/original${item.poster}`,
             }}
@@ -28,10 +28,10 @@ interface Movies {
   
   const styles = StyleSheet.create({
     contenedor: {
-      height: 600,
+      height: 300,
     }, 
     imagen: {
-      width: 300,
+      width: 200,
       margin: 1
     }
   })

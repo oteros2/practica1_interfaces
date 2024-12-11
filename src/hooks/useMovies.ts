@@ -14,7 +14,11 @@ export const useMovies = () => {
     setLoading(true);
       const movies = await FilmAdapter.getMovies({route: FilmAdapter.ROUTES.nowPlaying,page,});
       if (movies && movies.movies) {
-        setNowPlaying((prevMovies) => [...prevMovies, ...movies.movies]);
+        setNowPlaying((prevMovies) => {
+          const movieIds = new Set(prevMovies.map((movie) => movie.id));
+          const newMovies = movies.movies.filter((movie) => !movieIds.has(movie.id));
+          return [...prevMovies, ...newMovies];
+        });
       }
       setLoading(false); 
     }
