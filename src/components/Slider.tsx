@@ -1,37 +1,39 @@
-import { View, ScrollView, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, FlatList } from "react-native";
 import { Movie } from "../config/entities/Movie";
 import React from "react";
 
 interface Movies {
-    movies: Movie[];
-    height: number;
-    handleScroll: (event: any) => void;
-  }
-  
+  movies: Movie[];
+  height: number;
+  handleScroll: () => void;
+}
   export default function Slider({ movies, height, handleScroll }: Movies) {
     return (
-      <View>
-        <ScrollView style={styles.contenedor} horizontal={true} onScroll={handleScroll} scrollEventThrottle={16}>
-        {movies.map((item, index) => (
+      <FlatList
+        data={movies}
+        renderItem={({ item }) => (
           <Image
             style={[styles.imagen, { height }]}
-            key={item.id}
             source={{
               uri: `https://image.tmdb.org/t/p/original${item.poster}`,
             }}
           />
-        ))}
-      </ScrollView>
-      </View>
-    )
+        )}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        onEndReached={handleScroll} 
+        onEndReachedThreshold={0.5}
+        style={styles.contenedor}
+      />
+    );
   }
   
   const styles = StyleSheet.create({
     contenedor: {
-      height: 300,
-    }, 
+      height: 600,
+    },
     imagen: {
-      width: 200,
-      margin: 1
-    }
-  })
+      width: 300,
+      margin: 5,
+    },
+  });
