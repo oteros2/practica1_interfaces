@@ -11,8 +11,12 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     <View>
       <Text>HomeScreen</Text>
       <Button
-        title="Go to Movie Page"
+        title="Go to Movie Page 1"
         onPress={() => navigation.navigate('Movies')}
+      />
+       <Button
+        title="Go to Movie Page 2" 
+        onPress={() => navigation.navigate('Movies2')}
       />
     </View>
   )

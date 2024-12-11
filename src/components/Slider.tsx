@@ -6,8 +6,9 @@ interface Movies {
   movies: Movie[];
   height: number;
   handleScroll: () => void;
+  backgroundColor?: string;
 }
-  export default function Slider({ movies, height, handleScroll }: Movies) {
+  export default function Slider({ movies, height, handleScroll, backgroundColor }: Movies) {
     return (
       <FlatList
         data={movies}
@@ -23,17 +24,17 @@ interface Movies {
         horizontal
         onEndReached={handleScroll} 
         onEndReachedThreshold={0.5}
-        style={styles.contenedor}
+        style={[styles.contenedor, { backgroundColor }]}
       />
     );
   }
   
   const styles = StyleSheet.create({
     contenedor: {
-      height: 600,
+      height: 500,
     },
     imagen: {
       width: 300,
-      margin: 5,
+      margin: 2,
     },
   });

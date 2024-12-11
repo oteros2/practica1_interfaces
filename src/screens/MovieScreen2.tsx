@@ -15,9 +15,9 @@ const MovieScreen = ({ navigation }: MovieScreenProps) => {
     <View>
       <Slider
         movies={nowPlaying}
-        height={300}
+        height={500}
         handleScroll={loadNextMovies}
-        backgroundColor='red'
+        backgroundColor='black'
       />
       <Button
         title="Go to Home Screen"
