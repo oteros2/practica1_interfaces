@@ -1,30 +1,35 @@
-import { View, Text, Button, ActivityIndicator } from 'react-native'
+import { View,Button } from 'react-native'
 import React from 'react'
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import Slider from '../components/Slider';
 import { useMovies } from '../hooks/useMovies';
 
 type MovieScreenProps = {
-    navigation: NavigationProp<ParamListBase>;
-  };
+  navigation: NavigationProp<ParamListBase>;
+};
 
-const MovieScreen = ({navigation} : MovieScreenProps) => {
-  const { nowPlaying, loading } = useMovies();
+const MovieScreen = ({ navigation }: MovieScreenProps) => {
+  const { nowPlaying, loading, loadNextMovies } = useMovies();
 
-   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+  const handleScroll = (event: any) => {
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+    const isEndReached =
+      contentOffset.x + layoutMeasurement.width >= contentSize.width - 50;
+
+      if (isEndReached && !loading) {
+        loadNextMovies();
+      }
   }
 
-  return (
-    <View>
-      <Text>MovieScreen</Text>
-      {nowPlaying && <Slider movies={nowPlaying.movies} height={500} /> }
-      <Button
-        title="Go to Home Screen"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </View>
-  )
-}
+    return (
+      <View>
+        <Slider movies={nowPlaying} height={500} handleScroll={handleScroll}/>
+        <Button
+          title="Go to Home Screen"
+          onPress={() => navigation.navigate('Home')}
+        />
+      </View>
+    )
+  }
 
 export default MovieScreen
