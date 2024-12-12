@@ -5,36 +5,41 @@ import React from "react";
 interface Movies {
   movies: Movie[];
   height: number;
+  width: number;
   handleScroll: () => void;
   backgroundColor?: string;
+  orientation?: 'horizontal' | 'vertical';
 }
-  export default function Slider({ movies, height, handleScroll, backgroundColor }: Movies) {
-    return (
-      <FlatList
-        data={movies}
-        renderItem={({ item }) => (
-          <Image
-            style={[styles.imagen, { height }]}
-            source={{
-              uri: `https://image.tmdb.org/t/p/original${item.poster}`,
-            }}
-          />
-        )}
-        keyExtractor={(item) => item.id.toString()}
-        horizontal
-        onEndReached={handleScroll} 
-        onEndReachedThreshold={0.5}
-        style={[styles.contenedor, { backgroundColor }]}
-      />
-    );
-  }
-  
-  const styles = StyleSheet.create({
-    contenedor: {
-      height: 500,
-    },
-    imagen: {
-      width: 300,
-      margin: 2,
-    },
-  });
+export default function Slider({ movies, height, handleScroll, backgroundColor, orientation, width }: Movies) {
+  return (
+    <FlatList
+      data={movies}
+      renderItem={({ item }) => (
+        <Image
+          style={[styles.imagen, { height, width }]}
+          source={{
+            uri: `https://image.tmdb.org/t/p/original${item.poster}`,
+          }}
+          resizeMode="stretch"
+        />
+      )}
+      keyExtractor={(item) => item.id.toString()}
+      horizontal={orientation === 'horizontal'}
+      onEndReached={handleScroll}
+      onEndReachedThreshold={0.5}
+      contentContainerStyle={{ alignItems: 'center', justifyContent: 'center' }}
+      style={[styles.contenedor, { backgroundColor }]}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  contenedor: {
+    height: '95%',
+    width: '100%',
+  },
+  imagen: {
+    margin: 5,
+    borderRadius: 20,
+  },
+});
